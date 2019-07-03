@@ -260,6 +260,12 @@ class RedhatActions(CommonActions):
     def remove_lad_mdsd(self):
         return self.log_run_get_output('rpm -e lad-mdsd')
 
+class Redhat8Actions(RedhatActions):
+    def __init__(self, logger):
+        RedhatActions.__init__(self, logger)
+
+    def install_required_packages(self):
+        return (0, "no additional packages were needed")
 
 class Suse11Actions(RedhatActions):
     def __init__(self, logger):
@@ -323,6 +329,7 @@ DistroMap = {
     'ubuntu:16.04': Ubuntu1510OrHigherActions,
     'ubuntu:18.04': Ubuntu1510OrHigherActions,
     'redhat': RedhatActions,
+    'redhat:8.0': Redhat8Actions,
     'centos': CentosActions,
     'oracle': RedhatActions,
     'suse:12': Suse12Actions,
